@@ -1,0 +1,55 @@
+[ERROR] 2025-11-09T22:16:45.794Z - Error en proceso de autorización:
+Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+Stack: Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+    at createOAuth2Client (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:29:15)
+    at authorize (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:138:24)
+    at C:\Users\Gambit\Documents\trae_projects\ComunityClips\main.js:89:15
+    at WebContents.<anonymous> (node:electron/js2c/browser_init:2:79681)
+    at WebContents.emit (node:events:514:28)
+[ERROR] 2025-11-09T22:16:45.795Z - Error en autenticación:
+Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+Stack: Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+    at createOAuth2Client (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:29:15)
+    at authorize (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:138:24)
+    at C:\Users\Gambit\Documents\trae_projects\ComunityClips\main.js:89:15
+    at WebContents.<anonymous> (node:electron/js2c/browser_init:2:79681)
+    at WebContents.emit (node:events:514:28)
+[ERROR] 2025-11-09T22:16:49.089Z - Error en proceso de autorización:
+Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+Stack: Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+    at createOAuth2Client (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:29:15)
+    at authorize (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:138:24)
+    at C:\Users\Gambit\Documents\trae_projects\ComunityClips\main.js:89:15
+    at WebContents.<anonymous> (node:electron/js2c/browser_init:2:79681)
+    at WebContents.emit (node:events:514:28)
+[ERROR] 2025-11-09T22:16:49.090Z - Error en autenticación:
+Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+Stack: Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+    at createOAuth2Client (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:29:15)
+    at authorize (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:138:24)
+    at C:\Users\Gambit\Documents\trae_projects\ComunityClips\main.js:89:15
+    at WebContents.<anonymous> (node:electron/js2c/browser_init:2:79681)
+    at WebContents.emit (node:events:514:28)
+[ERROR] 2025-11-09T22:16:50.016Z - Error en proceso de autorización:
+Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+Stack: Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+    at createOAuth2Client (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:29:15)
+    at authorize (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:138:24)
+    at C:\Users\Gambit\Documents\trae_projects\ComunityClips\main.js:89:15
+    at WebContents.<anonymous> (node:electron/js2c/browser_init:2:79681)
+    at WebContents.emit (node:events:514:28)
+[ERROR] 2025-11-09T22:16:50.017Z - Error en autenticación:
+Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+Stack: Error: Faltan credenciales de YouTube. Por favor configura YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET en tu archivo .env
+    at createOAuth2Client (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:29:15)
+    at authorize (C:\Users\Gambit\Documents\trae_projects\ComunityClips\uploader\auth.js:138:24)
+    at C:\Users\Gambit\Documents\trae_projects\ComunityClips\main.js:89:15
+    at WebContents.<anonymous> (node:electron/js2c/browser_init:2:79681)
+    at WebContents.emit (node:events:514:28)
+[INFO] 2025-11-09T22:16:56.026Z - Configuración guardada exitosamente
+[INFO] 2025-11-09T22:17:54.578Z - Configuración guardada exitosamente
+[INFO] 2025-11-09T22:31:51.792Z - Configuración guardada exitosamente
+[INFO] 2025-11-09T22:31:53.465Z - Configuración guardada exitosamente
+[INFO] 2025-11-09T22:31:58.344Z - Configuración guardada exitosamente
+[INFO] 2025-11-09T22:31:58.344Z - Auto-scan configurado cada 5 minutos
+[INFO] 2025-11-09T22:31:59.768Z - Configuración guardada exitosamente

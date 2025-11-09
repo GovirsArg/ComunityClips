@@ -1,0 +1,24 @@
+{
+  "playerName": "Gambit",
+  "folders": [
+    {
+      "path": "F:\\Luciano\\Videos\\Counter-strike 2",
+      "gameName": "CS2",
+      "playlistId": ""
+    }
+  ],
+  "autoUpload": false,
+  "scanInterval": 5,
+  "deleteAfterUpload": false,
+  "privacy": "unlisted",
+  "maxConcurrentUploads": 2,
+  "videoFormats": [
+    ".mp4",
+    ".mov",
+    ".mkv",
+    ".avi",
+    ".wmv",
+    ".flv",
+    ".webm"
+  ]
+}
