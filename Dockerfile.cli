@@ -1,0 +1,75 @@
+# CommunityClips versión CLI (sin GUI)
+FROM node:18-slim
+
+# Instalar dependencias del sistema necesarias para Node.js
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Crear directorio de la aplicación
+WORKDIR /app
+
+# Copiar archivos del proyecto
+COPY package*.json ./
+COPY . .
+
+# Modificar package.json para modo CLI (sin Electron)
+RUN cp package.json package.json.backup && \
+    sed -i 's/"start": "electron ."/"start": "node cli-server.js"/' package.json
+
+# Instalar dependencias
+RUN npm install
+
+# Crear servidor CLI simple
+RUN echo 'const express = require("express");\n\
+const cors = require("cors");\n\
+const { scanFolders } = require("./uploader/scanner");\n\
+const { getConfig } = require("./uploader/config");\n\
+\n\
+const app = express();\n\
+const PORT = process.env.PORT || 3000;\n\
+\n\
+app.use(cors());\n\
+app.use(express.json());\n\
+\n\
+// API endpoints\n\
+app.get("/api/status", async (req, res) => {\n\
+    res.json({ status: "running", timestamp: new Date().toISOString() });\n\
+});\n\
+\n\
+app.get("/api/config", async (req, res) => {\n\
+    try {\n\
+        const config = await getConfig();\n\
+        res.json(config);\n\
+    } catch (error) {\n\
+        res.status(500).json({ error: error.message });\n\
+    }\n\
+});\n\
+\n\
+app.post("/api/scan", async (req, res) => {\n\
+    try {\n\
+        const config = await getConfig();\n\
+        const results = await scanFolders(config.folders, config);\n\
+        res.json(results);\n\
+    } catch (error) {\n\
+        res.status(500).json({ error: error.message });\n\
+    }\n\
+});\n\
+\n\
+app.listen(PORT, () => {\n\
+    console.log(`CommunityClips CLI server running on port ${PORT}`);\n\
+});' > cli-server.js
+
+# Instalar express para el servidor CLI
+RUN npm install express cors
+
+# Exponer puerto
+EXPOSE 3000
+
+# Volumen para datos persistentes
+VOLUME ["/app/data", "/app/config"]
+
+# Comando de inicio
+CMD ["npm", "start"]

@@ -1,0 +1,75 @@
+# CommunityClips con interfaz gráfica
+FROM ubuntu:22.04
+
+# Prevenir interactivos durante la instalación
+ENV DEBIAN_FRONTEND=noninteractive
+ENV DISPLAY=:99
+
+# Instalar dependencias del sistema
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    ca-certificates \
+    xvfb \
+    x11vnc \
+    fluxbox \
+    nodejs \
+    npm \
+    libgtk-3-0 \
+    libx11-xcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    libpangocairo-1.0-0 \
+    libpango-1.0-0 \
+    libatk1.0-0 \
+    libcairo-gobject2 \
+    libgtk-3-common \
+    libgdk-pixbuf2.0-0 \
+    libglib2.0-0 \
+    libnss3 \
+    libxss1 \
+    libxtst6 \
+    fonts-liberation \
+    libappindicator3-1 \
+    xdg-utils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Instalar Node.js 18.x más reciente
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# Crear directorio de la aplicación
+WORKDIR /app
+
+# Copiar archivos del proyecto
+COPY package*.json ./
+COPY . .
+
+# Instalar dependencias de Node.js
+RUN npm install
+
+# Crear script de inicio
+RUN echo '#!/bin/bash\n\
+echo "Iniciando servidor X virtual..."\n\
+Xvfb :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &\n\
+sleep 2\n\
+echo "Iniciando VNC server..."\n\
+x11vnc -display :99 -nopw -listen localhost -xkb -ncache 10 -ncache_cr -forever &\n\
+echo "Iniciando window manager..."\n\
+fluxbox &\n\
+sleep 2\n\
+echo "Iniciando CommunityClips..."\n\
+npm start' > /start-app.sh && chmod +x /start-app.sh
+
+# Exponer puerto VNC
+EXPOSE 5900
+
+# Volumen para datos persistentes
+VOLUME ["/app/data", "/app/config"]
+
+# Comando de inicio
+CMD ["/start-app.sh"]

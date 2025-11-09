@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # Opción 1: CommunityClips con GUI (acceso por VNC)
+  communityclips-gui:
+    build:
+      context: .
+      dockerfile: Dockerfile.gui
+    container_name: communityclips-gui
+    ports:
+      - "5900:5900"  # VNC
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    environment:
+      - DISPLAY=:99
+      - VNC_PASSWORD=communityclips123
+    networks:
+      - clips-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "5900"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Opción 2: CommunityClips versión CLI (API REST)
+  communityclips-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile.cli
+    container_name: communityclips-cli
+    ports:
+      - "3000:3000"  # API REST
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    networks:
+      - clips-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Opción 3: Interfaz web simple (opcional)
+  communityclips-web:
+    image: nginx:alpine
+    container_name: communityclips-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/usr/share/nginx/html
+    networks:
+      - clips-network
+    restart: unless-stopped
+
+networks:
+  clips-network:
+    driver: bridge
+
+volumes:
+  data:
+  config:
+  uploads:
+  logs:
