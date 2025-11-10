@@ -14,8 +14,6 @@ RUN apt-get update && apt-get install -y \
     xvfb \
     x11vnc \
     fluxbox \
-    nodejs \
-    npm \
     libgtk-3-0 \
     libx11-xcb1 \
     libxcomposite1 \
@@ -38,9 +36,14 @@ RUN apt-get update && apt-get install -y \
     xdg-utils \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar Node.js 18.x más reciente
+# Instalar Node.js 18.x con npm compatible
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs
+    apt-get remove -y nodejs npm && \
+    apt-get install -y nodejs && \
+    npm install -g npm@9
+
+# Crear usuario no-root para Electron
+RUN useradd -m -s /bin/bash clipsuser
 
 # Crear directorio de la aplicación
 WORKDIR /app
@@ -49,10 +52,14 @@ WORKDIR /app
 COPY package*.json ./
 COPY . .
 
+# Cambiar propietario y cambiar a usuario no-root
+RUN chown -R clipsuser:clipsuser /app
+USER clipsuser
+
 # Instalar dependencias de Node.js
 RUN npm install
 
-# Crear script de inicio
+# Crear script de inicio en /app donde el usuario tiene permisos
 RUN echo '#!/bin/bash\n\
 echo "Iniciando servidor X virtual..."\n\
 Xvfb :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &\n\
@@ -63,7 +70,8 @@ echo "Iniciando window manager..."\n\
 fluxbox &\n\
 sleep 2\n\
 echo "Iniciando CommunityClips..."\n\
-npm start' > /start-app.sh && chmod +x /start-app.sh
+export PATH="/app/node_modules/.bin:$PATH"\n\
+electron . --no-sandbox' > /app/start-app.sh && chmod +x /app/start-app.sh
 
 # Exponer puerto VNC
 EXPOSE 5900
@@ -72,4 +80,4 @@ EXPOSE 5900
 VOLUME ["/app/data", "/app/config"]
 
 # Comando de inicio
-CMD ["/start-app.sh"]
+CMD ["/app/start-app.sh"]

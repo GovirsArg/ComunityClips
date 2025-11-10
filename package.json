@@ -24,9 +24,11 @@
     "electron-builder": "^24.6.4"
   },
   "dependencies": {
-    "googleapis": "^128.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "express": "^5.1.0",
     "fs-extra": "^11.1.1",
+    "googleapis": "^128.0.0",
     "p-queue": "^6.6.2",
     "progress-stream": "^2.0.0"
   },
